@@ -1,0 +1,32 @@
+
+.TimerContainer{
+    color: #007bff;
+    margin-top: 15px;
+    margin-left: 50px;
+}
+
+h1, p {
+    text-align: center;
+}
+
+#start,
+#question-display,
+#questions {
+    text-align: center;
+    background-color: #ffffff;
+}
+
+button {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    display: inline;
+   margin: 20px 5px;
+   
+}
+
+#results-correct-wrong {
+    color: #007bff;
+    margin-top: 15px;
+    margin-left: 50px;
+}

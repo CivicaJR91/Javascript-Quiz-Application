@@ -14,23 +14,23 @@
   <div class="TimerContainer">
     <div class="timer"></div>
   </div>
-  <div class="container" id="start">
-    <div class="row">
-      <div class="col md-6">
-        <p>Welcome to Java Script Quiz. To start the quiz, click the "Start Quiz"</p>
-        <button id="qsbutton" type="button">Start Quiz</button>
-      </div>
-    </div>
+  <div class="jumbotron" id ="start">
+    <h1 class="display-4">Coding Quiz Challenge</h1>
+    <p class="lead" id="paragrah">Try to answer the following code-related questions withing the time limit. Keep in mind that incorrect answers will penalize <br>your scroretime by ten seconds</p>
+    <a class="btn btn-primary btn-lg" href="#" role="button" id="qsbutton">Start Quiz</a>
   </div>
-  <div class="container" id="questions">
-    <div class="row">
-      <div class="col-6" id="question1"></div>
-      <ul class="choices-list"></ul>
-    </div>
-    <div id="next-button"></div>
-  </div>
+  <div class="jumbotron" id="questions">
+  <p class="lead" id="question-display"></p>
   <div id="results"></div>
-  <div id= "playername"></div>
+  </div>
+  <div id="results-correct-wrong"></div>
+  <div id="alldone"></div>
+ 
+  <div id= "playername" type="input">
+    <input type="text" id="inputName" placeholder="Enter Your Name" style="display: none;">
+    <a class="btn btn-primary btn-lg" href="#" role="button" id="qsbutton" style="display: none;">Submit</a>
+</input>
+  </div>
   <script src="./Developer/script.js"></script>
 </body>
 

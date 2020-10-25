@@ -2,72 +2,124 @@
 //Timer variables
 var timer = document.querySelector(".timer");
 var btn = document.querySelector("#qsbutton");
+var counterStart = 60;
+
 
 //Start timmer function. Timmer will start after the "StartQuiz" button is pressed
 function setTimer() {
   event.preventDefault();
-  var counterStart = 0;
-  var timerInterval = setInterval(function () {
-    counterStart++;
+  setInterval(function () {
+    counterStart--;
     timer.textContent = "Timer: " + counterStart;
 
   }, 1000);
 }
 
-btn.addEventListener("click", setTimer);
+
 
 //Quiz object containing questions and answers (options)
 
-function startQuiz() {
+var start = document.querySelector("#start");//containr with the stat quizz button
+var quiz = document.querySelector("#questions"); // container that holds the questions & choices
+var questionDisplay = document.querySelector("#question-display");
+var choiceList = document.querySelector(".choices-list");//ul in the HMTL
 
-  var start = document.querySelector("#start");//containr with the stat quizz button
-  var quiz = document.querySelector("#questions"); // container that holds the questions & choices
-  var choiceList = document.getElementById("#choice-list");//ul in the HMTL
 
-  // Holds questions information in a Object format      
-  var quizInfo = [{
-    question: "Question 1?",
-    option1: "Choice 1",
-    option2: "Choice2",
-    //add the correct answer at some point correct:A XXX
+// questions, answers and correct answers 
+
+
+var quizInfo = [
+  {
+    question: "A very useful tool used during development and debugging for printing content to the debugger is:",
+    possibleAnswers: ["1. JavaScript", "2.terminal/bash", "3.for loops", "4.console log"],
+    answer: "4.console log",
   },
   {
-    question: "Question 2?",
-    option1: "Choice 1",
-    option2: "choice2",
-    //add the correct answer at some point correct:A XXX
+    question: "String values must be enclosed within (blank) when being assigned to variable.",
+    possibleAnswers: ["1. commas", "2. curly brackets", "3. parentheses", "4. quotations"],
+    answer: "4. quotations",
+  },
+  {
+    question: " Arrays in JavaScript can be used to store:",
+    possibleAnswers: ["1.Numbers and strings", "2. other arrays", "3. booleans", "4.all of the above"],
+    answer: "4.all of the above",
+  },
+  {
+    question: "The condition in an if/else statement is enclosed within:",
+    possibleAnswers: ["1. quotes", "2. curylbrakets", "3. parentheses", "4. square brackets"],
+    answer: "2. curylbrakets",
+  },
+  {
+    question: "Commonly used data types DO NOT include:",
+    possibleAnswers: ["1.strings", "2.booleans", "3.alerts", "4.numbers"],
+    answer: "3.alerts",
+  },
+];
+
+
+var quizQuestion = quizInfo.length;
+var questionDisplayIndex = 0; // question that is displaying to the user
+
+function displayQuestions() {
+
+  var showQuestion = quizInfo[questionDisplayIndex]; // the question the user is seeing
+  var currQuestion = showQuestion.question; //showing current question
+  var answersArray = showQuestion.possibleAnswers;// attach each answer to each question
+  var correctAnswer = showQuestion.answer; // correct answers
+
+  for (var i = 0; i < answersArray.length; i++) {
+
+    var answerslist = document.createElement("div"); // new element to render answers
+    questionDisplay.innerHTML = currQuestion;
+    questionDisplay.appendChild(answerslist); // appending div to class=choicelist
+
+    var optionButton = document.createElement("button");//creating button to render answers
+    optionButton.innerHTML = answersArray[i]; // adding each value to buttons
+    answerslist.appendChild(optionButton);
+
+  };
+
+  // Logic to check for results
+  var results = document.getElementById("results-correct-wrong");
+  var score = 0;
+
+  answerslist.addEventListener("click", function (event) {
+  var element = event.target
+
+   if (element.textContent === quizInfo[questionDisplayIndex].answer) {
+  results.textContent = "Correct";
+
+  //score = 10;
+
   }
-
-  ];
-
-  //loop to go over the oject array
-  for (var i = 0; i < quizInfo.length; i++) {
-    quizInfo[0].question;
-    start.innerHTML = quizInfo[0].question
-
-    // creating multiple choide list 
-    var li = document.createElement("li"); // creating li element
-    choiceList.appendChild(li); // appending li to ul
-    li.textContent = quizInfo[0].option1 // go thru quizInfo and get the option 1 in position 1 =0
-
-
-
-    //radio button
-    //var optionButton = document.createElement("button");//added button to test it. How i do a radio button
-    //li.appendChild(optionButton);
-    //optionButton.textContent = quizInfo.option1[0];
-
-    console.log(quizInfo[0]);
-
+  else {
+  results.textContent = "Wrong";
+  counterStart -= 10;
+  //score = 0;
   }
+  })
 
-  //Display a next button to go to the next question 
-  //var nextButton = document.querySelector("#next-button");
-  //nextButton.textContent = "Next";
+  questionDisplayIndex++;
+  displayQuestions();
 
 
+  //function displayingResults() {
+
+  /*var allDone = document.getElementById("alldone");
+  allDone = "All Done!";
+  var resultsPage = document.querySelector("#results");
+  //results.textContent = "Your score is "; //score; 
+  //Your final score is  each question = to 20 points
+
+  var inputName = document.querySelector("#playername");
+  inputName.style.display = "block"  // this has to say Enter Initials  Submit
+  */
+};
+
+function startQuiz() {
+  start.style.display = "none";
+  setTimer();
+  displayQuestions();
 }
 
 btn.addEventListener("click", startQuiz);
-
-
