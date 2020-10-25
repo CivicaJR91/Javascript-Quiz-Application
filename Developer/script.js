@@ -56,70 +56,90 @@ var quizInfo = [
   },
 ];
 
+console.log(quizInfo[0]);
 
-var quizQuestion = quizInfo.length;
+
+var quizQuestion = quizInfo.length - 1;
 var questionDisplayIndex = 0; // question that is displaying to the user
 
 function displayQuestions() {
+//if (quizInfo.length <= questionDisplayIndex){
+
 
   var showQuestion = quizInfo[questionDisplayIndex]; // the question the user is seeing
-  var currQuestion = showQuestion.question; //showing current question
-  var answersArray = showQuestion.possibleAnswers;// attach each answer to each question
-  var correctAnswer = showQuestion.answer; // correct answers
+  var currQuestion = showQuestion.question //current question
+  var answersArray = showQuestion.possibleAnswers// aswers that pertain to the question
+  var correctAnswer = showQuestion.answer // correct answers
 
-  for (var i = 0; i < answersArray.length; i++) {
 
-    var answerslist = document.createElement("div"); // new element to render answers
-    questionDisplay.innerHTML = currQuestion;
-    questionDisplay.appendChild(answerslist); // appending div to class=choicelist
+  questionDisplay.innerHTML = currQuestion // dispkaying the current question on the page
+  var answerslist = document.createElement("div"); // new element to render answers
+  questionDisplay.appendChild(answerslist); // appending li to class=choicelist
+
+ 
+  for (var i = 0; i < answersArray.length; i++)  {
 
     var optionButton = document.createElement("button");//creating button to render answers
     optionButton.innerHTML = answersArray[i]; // adding each value to buttons
     answerslist.appendChild(optionButton);
+    
+  }
 
-  };
+
 
   // Logic to check for results
   var results = document.getElementById("results-correct-wrong");
   var score = 0;
 
   answerslist.addEventListener("click", function (event) {
-  var element = event.target
+    var element = event.target
+    console.log(element)
 
    if (element.textContent === quizInfo[questionDisplayIndex].answer) {
-  results.textContent = "Correct";
+      results.textContent = "Correct";
+   
+      //score = 10;
+console.log(optionButton)
+    }
+    else {
+      results.textContent = "Wrong";
+   counterStart -= 10;
+      //score = 0;
+      //rest 10 seconds from the timmer
 
-  //score = 10;
-
-  }
-  else {
-  results.textContent = "Wrong";
-  counterStart -= 10;
-  //score = 0;
-  }
-  })
-
-  questionDisplayIndex++;
-  displayQuestions();
+    }
+    
+    questionDisplayIndex++;
+    displayQuestions();
+  });
 
 
-  //function displayingResults() {
 
-  /*var allDone = document.getElementById("alldone");
-  allDone = "All Done!";
-  var resultsPage = document.querySelector("#results");
-  //results.textContent = "Your score is "; //score; 
-  //Your final score is  each question = to 20 points
+  //displayingResults()
+ // function displayingResults() {
 
-  var inputName = document.querySelector("#playername");
-  inputName.style.display = "block"  // this has to say Enter Initials  Submit
-  */
-};
+    //var allDone = document.getElementById("alldone");
+    //allDone = "All Done!";
+    //var resultsPage = document.querySelector("#results");
+    //results.textContent = "Your score is "; //score; 
+    //Your final score is  each question = to 20 points
 
+    //var inputName = document.querySelector("#playername");
+    //inputName.style.display = "block"  // this has to say Enter Initials  Submit
+
+
+  //}
+
+
+
+}
+
+
+//function that will start rendefin questions, answers, and timer.
 function startQuiz() {
   start.style.display = "none";
   setTimer();
   displayQuestions();
-}
+};
 
 btn.addEventListener("click", startQuiz);
