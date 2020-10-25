@@ -11,8 +11,15 @@ function setTimer() {
   setInterval(function () {
     counterStart--;
     timer.textContent = "Timer: " + counterStart;
+    
 
   }, 1000);
+
+  //if (counterStart === 0){
+    //displayingResults();
+  //}
+
+
 }
 
 
@@ -89,7 +96,8 @@ function displayQuestions() {
 
   // Logic to check for results
   var results = document.getElementById("results-correct-wrong");
-  var score = 0;
+  var points = document.getElementById("score");
+  
 
   answerslist.addEventListener("click", function (event) {
     var element = event.target
@@ -97,15 +105,14 @@ function displayQuestions() {
 
    if (element.textContent === quizInfo[questionDisplayIndex].answer) {
       results.textContent = "Correct";
-   
-      //score = 10;
-console.log(optionButton)
+      counterStart += 10;
+    
+
     }
     else {
       results.textContent = "Wrong";
    counterStart -= 10;
-      //score = 0;
-      //rest 10 seconds from the timmer
+     
 
     }
     
@@ -114,21 +121,18 @@ console.log(optionButton)
   });
 
 
-
-  //displayingResults()
- // function displayingResults() {
-
-    //var allDone = document.getElementById("alldone");
-    //allDone = "All Done!";
-    //var resultsPage = document.querySelector("#results");
-    //results.textContent = "Your score is "; //score; 
-    //Your final score is  each question = to 20 points
-
-    //var inputName = document.querySelector("#playername");
-    //inputName.style.display = "block"  // this has to say Enter Initials  Submit
+  
 
 
-  //}
+  var allDone = document.getElementById("alldone");
+  var inputName = document.querySelector("#playername");
+
+    function displayingResults() {
+
+    allDone.textContent = "All Done!";
+    results.textContent = "Your score is "; //score; 
+   inputName.style.display = "block"  // this has to say Enter Initials  Submit
+  }
 
 
 
