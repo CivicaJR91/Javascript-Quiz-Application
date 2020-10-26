@@ -8,136 +8,146 @@ var counterStart = 60;
 //Start timmer function. Timmer will start after the "StartQuiz" button is pressed
 function setTimer() {
   event.preventDefault();
-  setInterval(function () {
+  var time = setInterval(function () {
     counterStart--;
     timer.textContent = "Timer: " + counterStart;
-    
+
+    if (counterStart <= 0) {
+      clearInterval(time);
+    }
 
   }, 1000);
-
-  //if (counterStart === 0){
-    //displayingResults();
-  //}
-
 
 }
 
 
 
-//Quiz object containing questions and answers (options)
+//Main Variables to HTML Elements
 
-var start = document.querySelector("#start");//containr with the stat quizz button
-var quiz = document.querySelector("#questions"); // container that holds the questions & choices
+var start = document.querySelector("#start");
+var quiz = document.querySelector("#questions"); 
 var questionDisplay = document.querySelector("#question-display");
-var choiceList = document.querySelector(".choices-list");//ul in the HMTL
+var choiceList = document.querySelector(".choices-list");
 
 
-// questions, answers and correct answers 
-
+// questions, answers and correct answers are inside of the object quizInfo
 
 var quizInfo = [
   {
-    question: "A very useful tool used during development and debugging for printing content to the debugger is:",
-    possibleAnswers: ["1. JavaScript", "2.terminal/bash", "3.for loops", "4.console log"],
-    answer: "4.console log",
+    question: "1. A very useful tool used during development and debugging for printing content to the debugger is:",
+    possibleAnswers: ["A. JavaScript", "B.terminal/bash", "C.for loops", "D.console log"],
+    answer: "D.console log",
   },
   {
-    question: "String values must be enclosed within (blank) when being assigned to variable.",
-    possibleAnswers: ["1. commas", "2. curly brackets", "3. parentheses", "4. quotations"],
-    answer: "4. quotations",
+    question: "2. String values must be enclosed within (blank) when being assigned to variable.",
+    possibleAnswers: ["A. commas", "B. curly brackets", "C. parentheses", "D. quotations"],
+    answer: "D. quotations",
   },
   {
-    question: " Arrays in JavaScript can be used to store:",
-    possibleAnswers: ["1.Numbers and strings", "2. other arrays", "3. booleans", "4.all of the above"],
-    answer: "4.all of the above",
+    question: "3. Arrays in JavaScript can be used to store:",
+    possibleAnswers: ["A.Numbers and strings", "B. other arrays", "C. booleans", "D.all of the above"],
+    answer: "D.all of the above",
   },
   {
-    question: "The condition in an if/else statement is enclosed within:",
-    possibleAnswers: ["1. quotes", "2. curylbrakets", "3. parentheses", "4. square brackets"],
-    answer: "2. curylbrakets",
+    question: "4. The condition in an if/else statement is enclosed within:",
+    possibleAnswers: ["A. quotes", "B. curylbrakets", "C. parentheses", "D. square brackets"],
+    answer: "B. curylbrakets",
   },
   {
-    question: "Commonly used data types DO NOT include:",
-    possibleAnswers: ["1.strings", "2.booleans", "3.alerts", "4.numbers"],
-    answer: "3.alerts",
+    question: "5. Commonly used data types DO NOT include:",
+    possibleAnswers: ["A.strings", "B.booleans", "C.alerts", "D.numbers"],
+    answer: "C.alerts",
   },
 ];
 
-console.log(quizInfo[0]);
-
 
 var quizQuestion = quizInfo.length - 1;
-var questionDisplayIndex = 0; // question that is displaying to the user
+var questionDisplayIndex = 0; 
 
+//Displayin the questions
 function displayQuestions() {
-//if (quizInfo.length <= questionDisplayIndex){
 
+  var showQuestion = quizInfo[questionDisplayIndex]; 
+  var currQuestion = showQuestion.question 
+  var answersArray = showQuestion.possibleAnswers
+  var correctAnswer = showQuestion.answer 
 
-  var showQuestion = quizInfo[questionDisplayIndex]; // the question the user is seeing
-  var currQuestion = showQuestion.question //current question
-  var answersArray = showQuestion.possibleAnswers// aswers that pertain to the question
-  var correctAnswer = showQuestion.answer // correct answers
+//A div has created to display the questions
+  questionDisplay.innerHTML = currQuestion 
+  var answerslist = document.createElement("div"); 
+  questionDisplay.appendChild(answerslist); 
 
+  console.log("questionDisplay" + questionDisplayIndex);
 
-  questionDisplay.innerHTML = currQuestion // dispkaying the current question on the page
-  var answerslist = document.createElement("div"); // new element to render answers
-  questionDisplay.appendChild(answerslist); // appending li to class=choicelist
-
- 
-  for (var i = 0; i < answersArray.length; i++)  {
-
-    var optionButton = document.createElement("button");//creating button to render answers
-    optionButton.innerHTML = answersArray[i]; // adding each value to buttons
-    answerslist.appendChild(optionButton);
-    
+  if (questionDisplayIndex === 4) {
+    displayingResults();
   }
 
+  for (var i = 0; i < answersArray.length; i++) {
+
+    //a button was creating, and it's attaching all the aswers
+    var optionButton = document.createElement("button");
+    optionButton.innerHTML = answersArray[i]; 
+    answerslist.appendChild(optionButton);
 
 
-  // Logic to check for results
+  }
   var results = document.getElementById("results-correct-wrong");
   var points = document.getElementById("score");
-  
+  var scoreDisplay = document.querySelector("#scoredisplay");
+  var score = 0;
+
+  // Logic to check for results
 
   answerslist.addEventListener("click", function (event) {
     var element = event.target
     console.log(element)
 
-   if (element.textContent === quizInfo[questionDisplayIndex].answer) {
+    if (element.textContent === quizInfo[questionDisplayIndex].answer) {
       results.textContent = "Correct";
       counterStart += 10;
-    
+      score++;
+      scoreDisplay.textContent = "Your Score: " + score;
+
 
     }
     else {
       results.textContent = "Wrong";
-   counterStart -= 10;
-     
+      counterStart -= 10;
+
 
     }
-    
+
     questionDisplayIndex++;
     displayQuestions();
   });
 
-
-  
-
-
-  var allDone = document.getElementById("alldone");
-  var inputName = document.querySelector("#playername");
-
-    function displayingResults() {
-
-    allDone.textContent = "All Done!";
-    results.textContent = "Your score is "; //score; 
-   inputName.style.display = "block"  // this has to say Enter Initials  Submit
-  }
-
-
-
 }
 
+
+var quizEnd = document.getElementById("quizend");
+var finalScore = document.getElementById("finalscore");
+var nameSubmittButton = document.getElementById("qsbutton");
+
+//Display Resuls
+
+function displayingResults() {
+
+  quizEnd.style.display = "block"
+  //finalScore.textContent = "Your score is "
+  quiz.style.display = "none"
+}
+
+//local store
+
+nameSubmittButton.addEventListener("click", function (event) {
+  event.preventDefault();
+
+  var inputName = document.querySelector("#inputName").value;
+
+   localStorage.setItem("inputName", inputName);
+
+});
 
 //function that will start rendefin questions, answers, and timer.
 function startQuiz() {

@@ -11,7 +11,8 @@ h1, p {
 
 #start,
 #question-display,
-#questions {
+#questions,
+#quizend {
     text-align: center;
     background-color: #ffffff;
 }
@@ -29,4 +30,17 @@ button {
     color: #007bff;
     margin-top: 15px;
     margin-left: 50px;
+}
+
+#inputName{
+    width: 300px;
+   display: inline;
+   margin-right: 10px;
+   margin-left: 300px;
+    
+}
+
+#inputName, 
+#qsbutton{
+    display: inline;
 }
