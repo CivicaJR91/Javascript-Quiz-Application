@@ -64,6 +64,8 @@ var quizInfo = [
 var quizQuestion = quizInfo.length - 1;
 var questionDisplayIndex = 0; 
 
+var score = 0;
+
 //Displayin the questions
 function displayQuestions() {
 
@@ -95,7 +97,7 @@ function displayQuestions() {
   var results = document.getElementById("results-correct-wrong");
   var points = document.getElementById("score");
   var scoreDisplay = document.querySelector("#scoredisplay");
-  var score = 0;
+  
 
   // Logic to check for results
 
@@ -106,7 +108,8 @@ function displayQuestions() {
     if (element.textContent === quizInfo[questionDisplayIndex].answer) {
       results.textContent = "Correct";
       counterStart += 10;
-      score++;
+      score++
+      console.log(score);
       scoreDisplay.textContent = "Your Score: " + score;
 
 
@@ -118,16 +121,18 @@ function displayQuestions() {
 
     }
 
+
+
+
     questionDisplayIndex++;
     displayQuestions();
   });
 
 }
 
-
 var quizEnd = document.getElementById("quizend");
 var finalScore = document.getElementById("finalscore");
-var nameSubmittButton = document.getElementById("qsbutton");
+var nameSubmittButton = document.getElementById("endbutton");
 
 //Display Resuls
 
@@ -143,11 +148,19 @@ function displayingResults() {
 nameSubmittButton.addEventListener("click", function (event) {
   event.preventDefault();
 
+  console.log("test");
+
   var inputName = document.querySelector("#inputName").value;
+  console.log(inputName);
 
-   localStorage.setItem("inputName", inputName);
+  localStorage.setItem("inputName", inputName);
 
+    
 });
+
+
+
+
 
 //function that will start rendefin questions, answers, and timer.
 function startQuiz() {
