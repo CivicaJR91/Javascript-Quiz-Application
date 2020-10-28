@@ -44,3 +44,14 @@ button {
 #qsbutton{
     display: inline;
 }
+
+#buttonsend {
+ justify-content: center;
+ margin-top: 15px;
+
+}
+
+#quizendtext {
+    font-size: 20px;
+}
+

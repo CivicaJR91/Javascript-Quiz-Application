@@ -27,14 +27,35 @@
 
   <div id="results-correct-wrong"></div>
 
-
-  <div class="jumbotron" id="quizend" style="display: none;">
-    <div id="gameend"> Game Ended!</div>
-    <div id="finalscore"></div>
-    <input type="text" name="inputName" id="inputName" placeholder="Enter Your Name"></input>
-    <a class="btn btn-primary btn-lg" href="#" role="button" id="endbutton">Submit</a>
+  <div class="card text-center" style="display: none;" id="quizend">
+    <div class="card-body">
+      <h5 class="card-title" id="quizendtext">Quiz Ended!</h5>
+      <input type="text" name="name" id="first-name" placeholder="Enter Your Name"></input>
+      <div id="buttonsend">
+        <a href="#" class="btn btn-primary" id="endbutton">Submit</a>
+        <a href="#" class="btn btn-primary" id="startagain">Start Quiz</a>
+        <a href="#" class="btn btn-primary" id="highscores">High Scores</a>
+      </div>
+    </div>
   </div>
-
+  <table class="table table-bordered" id="table" style="display: none;">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Score</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row" id="one"></th>
+        <td></td>
+      </tr>
+      <tr>
+        <th scope="row" id="two"></th>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
 
   <script src="./Developer/script.js"></script>
 </body>

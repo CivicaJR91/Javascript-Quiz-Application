@@ -3,6 +3,7 @@
 var timer = document.querySelector(".timer");
 var btn = document.querySelector("#qsbutton");
 var counterStart = 60;
+var score = 0;
 
 
 //Start timmer function. Timmer will start after the "StartQuiz" button is pressed
@@ -20,12 +21,10 @@ function setTimer() {
 
 }
 
-
-
-//Main Variables to HTML Elements
+//Main Variables to HTML Elements for the questions and answers
 
 var start = document.querySelector("#start");
-var quiz = document.querySelector("#questions"); 
+var quiz = document.querySelector("#questions");
 var questionDisplay = document.querySelector("#question-display");
 var choiceList = document.querySelector(".choices-list");
 
@@ -62,24 +61,22 @@ var quizInfo = [
 
 
 var quizQuestion = quizInfo.length - 1;
-var questionDisplayIndex = 0; 
-
-var score = 0;
+var questionDisplayIndex = 0;
 
 //Displayin the questions
 function displayQuestions() {
 
-  var showQuestion = quizInfo[questionDisplayIndex]; 
-  var currQuestion = showQuestion.question 
+  var showQuestion = quizInfo[questionDisplayIndex];
+  var currQuestion = showQuestion.question
   var answersArray = showQuestion.possibleAnswers
-  var correctAnswer = showQuestion.answer 
+  var correctAnswer = showQuestion.answer
 
-//A div has created to display the questions
-  questionDisplay.innerHTML = currQuestion 
-  var answerslist = document.createElement("div"); 
-  questionDisplay.appendChild(answerslist); 
+  //A div has created to display the questions
+  questionDisplay.innerHTML = currQuestion
+  var answerslist = document.createElement("div");
+  questionDisplay.appendChild(answerslist);
 
-  console.log("questionDisplay" + questionDisplayIndex);
+  // for loop to render questions and answers
 
   if (questionDisplayIndex === 4) {
     displayingResults();
@@ -89,17 +86,14 @@ function displayQuestions() {
 
     //a button was creating, and it's attaching all the aswers
     var optionButton = document.createElement("button");
-    optionButton.innerHTML = answersArray[i]; 
+    optionButton.innerHTML = answersArray[i];
     answerslist.appendChild(optionButton);
 
-
   }
-  var results = document.getElementById("results-correct-wrong");
-  var points = document.getElementById("score");
-  var scoreDisplay = document.querySelector("#scoredisplay");
-  
 
-  // Logic to check for results
+  var results = document.getElementById("results-correct-wrong");
+
+  //desision statements to confirm if the aswers is wrong or right, time chages and score
 
   answerslist.addEventListener("click", function (event) {
     var element = event.target
@@ -116,22 +110,19 @@ function displayQuestions() {
     }
     else {
       results.textContent = "Wrong";
-      counterStart -= 10;
+      counterStart -= 30;
 
 
     }
 
-
-
-
     questionDisplayIndex++;
     displayQuestions();
+
   });
 
 }
 
 var quizEnd = document.getElementById("quizend");
-var finalScore = document.getElementById("finalscore");
 var nameSubmittButton = document.getElementById("endbutton");
 
 //Display Resuls
@@ -139,34 +130,70 @@ var nameSubmittButton = document.getElementById("endbutton");
 function displayingResults() {
 
   quizEnd.style.display = "block"
-  //finalScore.textContent = "Your score is "
   quiz.style.display = "none"
+
 }
 
 //local store
 
+var nameInput = document.querySelector("#first-name");
+console.log(nameInput);
+var scoreDisplay = document.querySelector("#scoredisplay");
+var rowOne = document.getElementById("one");
+var rowTwo = document.getElementById("two");
+
 nameSubmittButton.addEventListener("click", function (event) {
   event.preventDefault();
 
-  console.log("test");
+  //1 create user object from submission
 
-  var inputName = document.querySelector("#inputName").value;
-  console.log(inputName);
+  var players = {
+    firstName: nameInput.value.trim(),
+    playerScore: scoreDisplay.value,
+  };
 
-  localStorage.setItem("inputName", inputName);
 
-    
+  //2. Set Nee Submission
+  localStorage.setItem("players", JSON.stringify(players));
+
+  // 3. Get most recent submission
+  var recentPlayers = JSON.parse(localStorage.getItem("players"));
+  rowOne.textContent = recentPlayers.firstName;
+  rowTwo.textContent = recentPlayers.playerScore;
+
 });
 
 
 
-
-
 //function that will start rendefin questions, answers, and timer.
+
+
 function startQuiz() {
   start.style.display = "none";
   setTimer();
   displayQuestions();
+
 };
 
 btn.addEventListener("click", startQuiz);
+
+
+var startAgain = document.getElementById("startagain");
+startAgain.addEventListener("click", displayQuestions);
+
+var highScoreButton = document.getElementById("highscores");
+
+highScoreButton.addEventListener("click", playersPage)
+
+function playersPage() {
+  table.style.display = "block";
+}
+
+
+
+
+
+
+
+
+
