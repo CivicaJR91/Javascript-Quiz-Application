@@ -49,5 +49,5 @@ THEN I can save my initials and score
 * Page Link: https://civicajr91.github.io/Javascript-Quiz-Application/
 
 # Note: 
-This is not completed. As of 10.25.20
+This is not completed. I could not figured out how to do the high score.
 
