@@ -175,11 +175,8 @@ function startQuiz() {
 
 };
 
-btn.addEventListener("click", startQuiz);
 
 
-var startAgain = document.getElementById("startagain");
-startAgain.addEventListener("click", displayQuestions);
 
 var highScoreButton = document.getElementById("highscores");
 
@@ -190,7 +187,7 @@ function playersPage() {
 }
 
 
-
+btn.addEventListener("click", startQuiz);
 
 
 
